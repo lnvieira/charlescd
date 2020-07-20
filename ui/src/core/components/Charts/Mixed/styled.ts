@@ -14,8 +14,33 @@
  * limitations under the License.
  */
 
-import { chartDateFormatter } from '../helpers';
+import styled from 'styled-components';
+import Charts from 'react-apexcharts';
 
-test('must formatte date for chart', () => {
-  expect(chartDateFormatter("2020-08-13")).toEqual("13/08/2020");
-});
+interface ChartProps {
+  className?: string;
+}
+
+const Chart = styled(Charts)<ChartProps>`
+  padding-right: 15px;
+
+  .apexcharts-canvas,
+  .apexcharts-canvas.apexcharts-theme-dark {
+    background-color: transparent;
+  }
+
+  .apexcharts-xaxis-tick {
+    display: none;
+  }
+
+  .apexcharts-yaxistooltip {
+    display: none;
+  }
+  .apexcharts-xaxistooltip {
+    display: none;
+  }
+`;
+
+export default {
+  Chart
+};

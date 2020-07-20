@@ -14,8 +14,33 @@
  * limitations under the License.
  */
 
-import { chartDateFormatter } from '../helpers';
+import React from 'react';
+import defaultsDeep from 'lodash/defaultsDeep';
+import defaultConfig from './config';
+import Styled from './styled';
 
-test('must formatte date for chart', () => {
-  expect(chartDateFormatter("2020-08-13")).toEqual("13/08/2020");
-});
+export interface Props {
+  series: object[];
+  options?: object;
+  className?: string;
+  width?: number | string;
+  height?: number | string;
+}
+
+const ColumnChart = ({
+  className,
+  options,
+  series,
+  width = '100%',
+  height
+}: Props) => (
+  <Styled.Chart
+    className={className}
+    options={defaultsDeep(options, defaultConfig.options)}
+    width={width}
+    height={height}
+    series={series}
+  />
+);
+
+export default ColumnChart;

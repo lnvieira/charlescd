@@ -20,17 +20,12 @@ import { useForm } from 'react-hook-form';
 import Loader from '../Loaders/index';
 import { normalizeCircleParams } from '../helpers';
 import { useDeployMetric } from './hooks';
-import averageTimeOptions from './averageTime.options';
 import deployOptions from './deploy.options';
 import { periodFilterItems } from './constants';
 import Styled from './styled';
 import CircleFilter from './CircleFilter';
 import ChartMenu from './ChartMenu';
-import {
-  getDeploySeries,
-  getAverageTimeSeries,
-  getPlotOption
-} from './helpers';
+import { getDeploySeries, getPlotOption } from './helpers';
 import { humanizeDateFromSeconds } from 'core/utils/date';
 import isUndefined from 'lodash/isUndefined';
 
@@ -39,7 +34,6 @@ const Deploys = () => {
   const { control, handleSubmit, getValues, setValue } = useForm();
 
   const deploySeries = getDeploySeries(response);
-  const averageTimeSeries = getAverageTimeSeries(response);
 
   const plotOptions = getPlotOption(deploySeries);
   const deployChartOption = isUndefined(plotOptions)
@@ -116,13 +110,14 @@ const Deploys = () => {
           </Text.h2>
           <ChartMenu onReset={() => resetChart('chartDeploy')} />
         </Styled.ChartControls>
-        <Styled.ColumnChart
+        <Styled.MixedChart
           options={deployChartOption}
           series={deploySeries}
           width={1180}
           height={450}
         />
       </Styled.Card>
+<<<<<<< HEAD
       <Styled.Card
         width="1220px"
         height="521px"
@@ -141,6 +136,8 @@ const Deploys = () => {
           height={450}
         />
       </Styled.Card>
+=======
+>>>>>>> 6c14c97fd138d044020d2e7802b84a620d6c2031
     </Styled.Content>
   );
 };
