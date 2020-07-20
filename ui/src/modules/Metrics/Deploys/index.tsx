@@ -117,27 +117,6 @@ const Deploys = () => {
           height={450}
         />
       </Styled.Card>
-<<<<<<< HEAD
-      <Styled.Card
-        width="1220px"
-        height="521px"
-        data-testid="apexchart-average-time"
-      >
-        <Styled.ChartControls>
-          <Text.h2 color="light" weight="bold">
-            Average time
-          </Text.h2>
-          <ChartMenu onReset={() => resetChart('chartAverageTime')} />
-        </Styled.ChartControls>
-        <Styled.AreaChart
-          options={averageTimeOptions}
-          series={averageTimeSeries}
-          width={1180}
-          height={450}
-        />
-      </Styled.Card>
-=======
->>>>>>> 6c14c97fd138d044020d2e7802b84a620d6c2031
     </Styled.Content>
   );
 };
