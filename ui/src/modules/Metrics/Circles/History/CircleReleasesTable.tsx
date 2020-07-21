@@ -32,7 +32,7 @@ const CircleReleasesTable = ({ circleId }: Props) => {
   const [releases, setReleases] = useState<CircleRelease[]>([]);
   const { getCircleReleases, response } = useCirclesReleases();
   const releasesResponse = response?.content;
-  const hasMoreData = !response?.isLast;
+  const hasMoreData = !response?.last;
 
   useEffect(() => {
     if (releasesResponse) {
@@ -46,12 +46,12 @@ const CircleReleasesTable = ({ circleId }: Props) => {
   useEffect(() => {
     page.current = 0;
     setReleases([]);
-    getCircleReleases(circleId, { page: 0 });
+    getCircleReleases({ page: 0, circleId });
   }, [getCircleReleases, circleId]);
 
   const loadMore = () => {
     page.current++;
-    getCircleReleases(circleId, { page: page.current });
+    getCircleReleases({ page: page.current, circleId });
   };
 
   return (
@@ -77,8 +77,8 @@ const CircleReleasesTable = ({ circleId }: Props) => {
         loader={<Loader.Releases />}
         height={300}
       >
-        {releases?.map((release, index) => (
-          <ReleaseRow release={release} key={index} />
+        {releases?.map(release => (
+          <ReleaseRow release={release} key={release.id} />
         ))}
       </InfiniteScroll>
     </>

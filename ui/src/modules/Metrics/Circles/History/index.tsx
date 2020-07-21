@@ -30,7 +30,7 @@ const HistoryComponent = () => {
   const [circles, setCircles] = useState<CircleHistory[]>([]);
   const { getCirclesHistory, response, loading } = useCirclesHistory();
   const historyResponse = response?.page?.content;
-  const hasMoreData = !response?.page?.isLast;
+  const hasMoreData = !response?.page?.last;
 
   useEffect(() => {
     if (historyResponse) {
@@ -82,8 +82,8 @@ const HistoryComponent = () => {
             loader={<Loader.History />}
             height={500}
           >
-            {circles?.map((circle: CircleHistory, index: number) => (
-              <CircleRow circle={circle} key={index} />
+            {circles?.map(circle => (
+              <CircleRow circle={circle} key={circle.id} />
             ))}
           </InfiniteScroll>
         </Styled.CircleRowWrapper>

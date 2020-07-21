@@ -41,7 +41,7 @@ class FindCirclesHistoryInteractorImplTest extends Specification {
         def result = findCirclesHistoryInteractor.execute(workspaceId, null, pageRequest)
 
         then:
-        1 * circleRepository.countByWorkspaceGroupedByStatus(workspaceId, null) >> [new CircleCount(2, CircleStatusEnum.INACTIVE)]
+        1 * circleRepository.countNotDefaultByWorkspaceGroupedByStatus(workspaceId, null) >> [new CircleCount(2, CircleStatusEnum.INACTIVE)]
         1 * circleRepository.findCirclesHistory(workspaceId, null, pageRequest) >> new Page(circles, pageRequest.page, pageRequest.size, circles.size())
         0 * _
 
@@ -65,7 +65,7 @@ class FindCirclesHistoryInteractorImplTest extends Specification {
         def result = findCirclesHistoryInteractor.execute(workspaceId, null, pageRequest)
 
         then:
-        1 * circleRepository.countByWorkspaceGroupedByStatus(workspaceId, null) >> [new CircleCount(2, CircleStatusEnum.ACTIVE)]
+        1 * circleRepository.countNotDefaultByWorkspaceGroupedByStatus(workspaceId, null) >> [new CircleCount(2, CircleStatusEnum.ACTIVE)]
         1 * circleRepository.findCirclesHistory(workspaceId, null, pageRequest) >> new Page(circles, pageRequest.page, pageRequest.size, circles.size())
         0 * _
 
@@ -94,7 +94,7 @@ class FindCirclesHistoryInteractorImplTest extends Specification {
         def result = findCirclesHistoryInteractor.execute(workspaceId, nameForSearch, pageRequest)
 
         then:
-        1 * circleRepository.countByWorkspaceGroupedByStatus(workspaceId, nameForSearch) >> summary
+        1 * circleRepository.countNotDefaultByWorkspaceGroupedByStatus(workspaceId, nameForSearch) >> summary
         1 * circleRepository.findCirclesHistory(workspaceId, nameForSearch, pageRequest) >> new Page(circles, pageRequest.page, pageRequest.size, circles.size())
         0 * _
 
@@ -118,7 +118,7 @@ class FindCirclesHistoryInteractorImplTest extends Specification {
         def result = findCirclesHistoryInteractor.execute(workspaceId, nameForSearch, pageRequest)
 
         then:
-        1 * circleRepository.countByWorkspaceGroupedByStatus(workspaceId, nameForSearch) >> summary
+        1 * circleRepository.countNotDefaultByWorkspaceGroupedByStatus(workspaceId, nameForSearch) >> summary
         1 * circleRepository.findCirclesHistory(workspaceId, nameForSearch, pageRequest) >> new Page(circles, pageRequest.page, pageRequest.size, circles.size())
         0 * _
 
@@ -129,7 +129,7 @@ class FindCirclesHistoryInteractorImplTest extends Specification {
         result.page.isLast
         result.page.totalPages == 1
         result.page.content.size() == 1
-        result.page.content[0].lifetime == 120
+        result.page.content[0].lifeTime == 120
     }
 
     private static CircleHistory buildCircleHistory(String id, CircleStatusEnum status) {
