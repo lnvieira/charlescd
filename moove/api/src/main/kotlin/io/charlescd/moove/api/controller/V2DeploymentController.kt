@@ -70,9 +70,20 @@ class V2DeploymentController(
     }
 
     @ApiOperation(value = "Get Deployment History")
-    @GetMapping("/history")
+    @GetMapping("/history/{id}")
     @ResponseStatus(HttpStatus.OK)
     fun deploymentHistory(
+        @RequestHeader("x-workspace-id") workspaceId: String,
+        @RequestParam(value = "circles", required = false) circles: List<String>?,
+        pageRequest: PageRequest
+    ): ResourcePageResponse<DeploymentHistoryResponse> {
+        return this.findDeploymentsHistoryInteractor.execute(workspaceId, circles, pageRequest)
+    }
+
+    @ApiOperation(value = "Get Deployment History")
+    @GetMapping("/history")
+    @ResponseStatus(HttpStatus.OK)
+    fun deploymentSummarizedHistory(
         @RequestHeader("x-workspace-id") workspaceId: String,
         @RequestParam(value = "circles", required = false) circles: List<String>?,
         pageRequest: PageRequest
